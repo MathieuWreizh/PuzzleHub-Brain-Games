@@ -1,0 +1,261 @@
+{
+  "@@locale": "fr",
+
+  "appSubtitle": "Testez votre culture musicale",
+  "btnSolo": "Solo",
+  "btnMultiplayer": "Multijoueur",
+  "btnBack": "Retour",
+  "btnContinue": "Continuer",
+  "btnQuit": "Quitter",
+  "btnReplay": "Rejouer",
+  "btnHome": "Accueil",
+
+  "drawerMyAvatar": "Mon avatar",
+  "drawerAchievements": "Succès",
+  "drawerSettings": "Paramètres",
+  "drawerGuest": "Invité",
+  "drawerConnected": "Connecté",
+  "drawerNotConnected": "Non connecté",
+
+  "genreTitle": "Choisir un genre",
+  "roundCount": "Nombre de musiques",
+  "btnPlayWithCount": "Jouer · {count} musiques",
+  "@btnPlayWithCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "gameLoading": "Chargement des musiques...",
+  "gameUnknownError": "Erreur inconnue",
+  "quitTitle": "Quitter la partie ?",
+  "quitMessage": "Votre progression sera perdue.",
+  "btnResults": "Voir les résultats",
+  "btnNext": "Suivant",
+
+  "questionFindTitle": "Quel est le titre ?",
+  "questionFindArtist": "Quel est l'artiste ?",
+  "questionFindAlbum": "Quel est l'album ?",
+
+  "settingsTitle": "Paramètres",
+  "settingsAudio": "Audio",
+  "settingsMusicVolume": "Volume de la musique",
+  "settingsVolume": "Volume",
+  "settingsLanguage": "Langue",
+
+  "resultTotalScore": "Score total",
+  "resultCorrectAnswers": "Bonnes réponses",
+  "resultAccuracy": "Précision",
+  "resultXpTitle": "Expérience",
+  "resultLevelUp": "Niveau {level} atteint !",
+  "@resultLevelUp": {
+    "placeholders": {
+      "level": { "type": "int" }
+    }
+  },
+  "resultMaestro": "Maestro !",
+  "resultExcellent": "Excellent !",
+  "resultGood": "Bien joué !",
+  "resultNotBad": "Pas mal...",
+  "resultKeepListening": "Continuez à écouter !",
+
+  "achievementsTitle": "Succès",
+  "achievementsUnlocked": "succès débloqués",
+  "achievementsError": "Erreur : {error}",
+  "@achievementsError": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "drawerPlaylists": "Mes playlists",
+  "drawerDailyChallenges": "Défis du jour",
+  "drawerLeague": "Ligues",
+  "drawerChests": "Coffres",
+
+  "leagueTitle": "Ligues",
+  "leagueTierName": "{tier}",
+  "@leagueTierName": { "placeholders": { "tier": { "type": "String" } } },
+  "leagueWeeklyPoints": "{points} pts cette semaine",
+  "@leagueWeeklyPoints": { "placeholders": { "points": { "type": "int" } } },
+  "leagueNextTier": "Encore {pts} pts pour {tier}",
+  "@leagueNextTier": { "placeholders": { "pts": { "type": "int" }, "tier": { "type": "String" } } },
+  "leagueMaxTier": "Rang maximum atteint !",
+  "leaguePointsEarned": "+{pts} pts Ligue",
+  "@leaguePointsEarned": { "placeholders": { "pts": { "type": "int" } } },
+
+  "leaderboardTitle": "Classement",
+  "leaderboardYou": "Vous",
+  "leaderboardEmpty": "Soyez le premier de votre ligue !",
+  "leaderboardIndexHint": "Le classement sera disponible après votre première partie.",
+
+  "chestTitle": "Coffres",
+  "chestBronze": "Bronze",
+  "chestSilver": "Argent",
+  "chestGold": "Or",
+  "chestReady": "Ouvrir !",
+  "chestOpen": "Ouvrir",
+  "chestEmpty": "Slot vide",
+  "chestWatchAd": "📺 Ouvrir maintenant",
+  "chestMaxReached": "Coffres pleins (4/4)",
+  "chestEarned": "Coffre {type} gagné !",
+  "@chestEarned": { "placeholders": { "type": { "type": "String" } } },
+  "chestCreditsWon": "+{credits} crédits !",
+  "@chestCreditsWon": { "placeholders": { "credits": { "type": "int" } } },
+  "chestOpenIn": "Ouverture dans",
+
+  "creditBalance": "Crédits gagnés",
+  "creditBase": "Partie terminée",
+  "creditStreakBonus": "Série de bonnes réponses",
+  "creditRecordBonus": "Nouveau record !",
+  "creditDailyBonus": "Bonus quotidien",
+  "creditChallengeBonus": "Défis complétés",
+
+  "challengesCompleted": "Défis complétés !",
+  "challengePlayGame": "Jouer une partie",
+  "challengeAccuracy": "Précision {target}%+",
+  "@challengeAccuracy": { "placeholders": { "target": { "type": "int" } } },
+  "challengeStreak": "Enchaîner {target} bonnes réponses",
+  "@challengeStreak": { "placeholders": { "target": { "type": "int" } } },
+  "challengeScore": "Marquer {target} points",
+  "@challengeScore": { "placeholders": { "target": { "type": "int" } } },
+  "challengeGenre": "Jouer dans ce genre",
+
+  "rewardedAdBtn": "Regarder une pub → +{credits} crédits",
+  "@rewardedAdBtn": { "placeholders": { "credits": { "type": "int" } } },
+
+  "hintBtn": "Indice (10 crédits)",
+  "hintDecade": "Années {decade}",
+  "@hintDecade": { "placeholders": { "decade": { "type": "String" } } },
+  "hintNoInfo": "Info indisponible",
+  "hintInsufficientCredits": "Crédits insuffisants",
+
+  "genreLockedCost": "{cost} crédits",
+  "@genreLockedCost": { "placeholders": { "cost": { "type": "int" } } },
+  "genreUnlockTitle": "Débloquer {genre}",
+  "@genreUnlockTitle": { "placeholders": { "genre": { "type": "String" } } },
+  "genreUnlockConfirm": "Dépenser {cost} crédits pour débloquer {genre} ?",
+  "@genreUnlockConfirm": { "placeholders": { "cost": { "type": "int" }, "genre": { "type": "String" } } },
+  "genreUnlockBtn": "Débloquer",
+  "genreInsufficientCredits": "Solde insuffisant ({current} crédits)",
+  "@genreInsufficientCredits": { "placeholders": { "current": { "type": "int" } } },
+  "genreUnlockSuccess": "Débloqué !",
+
+  "dailyChallengesTitle": "Défis du jour",
+  "dailyChallengesDone": "{done}/{total} complétés",
+  "@dailyChallengesDone": { "placeholders": { "done": { "type": "int" }, "total": { "type": "int" } } },
+  "dailyChallengesEmpty": "Revenez demain pour de nouveaux défis !",
+  "streakDays": "{days} jour(s) consécutif(s)",
+  "@streakDays": { "placeholders": { "days": { "type": "int" } } },
+
+  "playlistsTitle": "Mes playlists",
+  "playlistNew": "Nouvelle playlist",
+  "playlistNameHint": "Nom de la playlist",
+  "playlistCreate": "Créer",
+  "playlistEmpty": "Aucune playlist pour l'instant",
+  "playlistEmptyTip": "Créez votre première playlist personnalisée !",
+  "playlistTrackCount": "{count} musique(s)",
+  "@playlistTrackCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "playlistMinTracks": "Ajoutez au moins {min} musiques pour jouer",
+  "@playlistMinTracks": {
+    "placeholders": {
+      "min": { "type": "int" }
+    }
+  },
+  "playlistPlay": "Jouer",
+  "playlistDelete": "Supprimer",
+  "playlistDeleteConfirm": "Supprimer cette playlist ?",
+  "playlistDeleteMessage": "Cette action est irréversible.",
+  "playlistSearchHint": "Rechercher un titre ou un artiste...",
+  "playlistSearchEmpty": "Aucun résultat",
+  "playlistInPlaylist": "Dans la playlist",
+  "playlistAdd": "Ajouter",
+  "playlistRemove": "Retirer",
+  "playlistNoPreview": "Pas d'extrait disponible",
+
+  "catGamesPlayed": "Parties jouées",
+  "catVictories": "Victoires",
+  "catPerfection": "Perfection",
+  "catGenres": "Genres",
+
+  "achTitleGames10": "Novice",
+  "achDescGames10": "Jouer 10 parties",
+  "achTitleGames20": "Amateur",
+  "achDescGames20": "Jouer 20 parties",
+  "achTitleGames50": "Passionné",
+  "achDescGames50": "Jouer 50 parties",
+  "achTitleGames100": "Mélomane",
+  "achDescGames100": "Jouer 100 parties",
+  "achTitleWins1": "Première victoire",
+  "achDescWins1": "Gagner 1 partie (≥ 70 % de précision)",
+  "achTitleWins10": "En forme",
+  "achDescWins10": "Gagner 10 parties",
+  "achTitleWins25": "Champion",
+  "achDescWins25": "Gagner 25 parties",
+  "achTitleWins50": "Imbattable",
+  "achDescWins50": "Gagner 50 parties",
+  "achTitlePerfect1": "Parfait !",
+  "achDescPerfect1": "Terminer une partie sans la moindre erreur",
+  "achTitlePerfect5": "Maître du blind test",
+  "achDescPerfect5": "Réussir 5 parties parfaites",
+  "achTitleGenre": "Fan de {genre}",
+  "@achTitleGenre": {
+    "placeholders": {
+      "genre": { "type": "String" }
+    }
+  },
+  "achDescGenre": "Jouer 10 parties en {genre}",
+  "@achDescGenre": {
+    "placeholders": {
+      "genre": { "type": "String" }
+    }
+  },
+
+  "drawerSeason": "Passe de Saison",
+  "drawerProfile": "Mon Profil",
+
+  "seasonTitle": "Passe de Saison",
+  "seasonLevel": "Niveau {level}",
+  "@seasonLevel": { "placeholders": { "level": { "type": "int" } } },
+  "seasonXpProgress": "{current}/{max} XP",
+  "@seasonXpProgress": { "placeholders": { "current": { "type": "int" }, "max": { "type": "int" } } },
+  "seasonEnds": "Fin dans {days} j",
+  "@seasonEnds": { "placeholders": { "days": { "type": "int" } } },
+  "seasonMaxLevel": "Niveau maximum atteint !",
+  "seasonFreeTrack": "Gratuit",
+  "seasonPremium": "Premium 🔒",
+  "seasonClaimAll": "Récupérer {count} récompense(s)",
+  "@seasonClaimAll": { "placeholders": { "count": { "type": "int" } } },
+  "seasonRewardsClaimed": "{count} récompense(s) récupérée(s) !",
+  "@seasonRewardsClaimed": { "placeholders": { "count": { "type": "int" } } },
+  "seasonLevelUp": "Niveau de saison {level} atteint !",
+  "@seasonLevelUp": { "placeholders": { "level": { "type": "int" } } },
+
+  "profileTitle": "Mon Profil",
+  "profileBestScore": "Meilleur score",
+  "profileGamesPlayed": "Parties jouées",
+  "profileWins": "Victoires",
+  "profilePerfect": "Parfaites",
+  "profileAccuracy": "Précision moy.",
+  "profileStreak": "Série actuelle",
+  "profileAchievements": "Succès",
+
+  "settingsNotifications": "Notifications",
+  "settingsNotifChest": "Coffres prêts à ouvrir",
+  "settingsNotifDaily": "Rappel défis quotidiens",
+  "settingsNotifPermission": "Activer les notifications",
+
+  "sudokuTitle": "Sudoku",
+  "sudokuSubtitle": "Remplis la grille 9×9",
+  "sudokuChooseDifficulty": "Choisir une difficulté",
+  "sudokuEasy": "Facile",
+  "sudokuMedium": "Moyen",
+  "sudokuHard": "Difficile",
+  "sudokuExpert": "Expert",
+  "puzzleGamesTitle": "Puzzle Games",
+  "puzzleGamesSubtitle": "Jeux de réflexion",
+  "comingSoon": "Plus de jeux à venir..."
+}

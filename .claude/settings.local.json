@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:pub.dev)",
+      "Bash(flutter pub get)",
+      "Bash(firebase deploy --only functions)",
+      "Bash(./gradlew signingReport)",
+      "Bash(keytool -list -v -keystore \"C:\\\\Users\\\\Enzooo\\\\.android\\\\debug.keystore\" -alias androiddebugkey -storepass android -keypass android)",
+      "Read(//c/Users/Enzooo/AppData/Local/Android/Sdk/**)",
+      "Read(//c/Program Files/Android/Android Studio/jbr/bin//**)",
+      "Read(//c/Program Files/Android/Android Studio/jre/**)",
+      "Bash(\"/c/Program Files/Android/Android Studio/jre/bin/keytool.exe\" -list -v -keystore \"C:/Users/Enzooo/.android/debug.keystore\" -alias androiddebugkey -storepass android -keypass android)",
+      "Bash(flutter analyze)",
+      "Bash(flutter create . --project-name blind_test --org com.blindtest --platforms android,ios)",
+      "Bash(flutter analyze lib/)",
+      "Bash(dart analyze lib/screens/multiplayer/online_game_screen.dart lib/screens/game_screen.dart lib/providers/multiplayer_provider.dart lib/providers/game_provider.dart)",
+      "Bash(flutter pub add shared_preferences)",
+      "Bash(flutter analyze:*)",
+      "Bash(flutter gen-l10n:*)",
+      "Bash(grep -l \"online_question\\\\|player_answer\\\\|game_service\\\\|deezer\\\\|audio_service\\\\|game_config\\\\|game_provider\\\\|playlist_provider\" c:/Users/Enzooo/Documents/dev/BlindTest/lib/**/*.dart c:/Users/Enzooo/Documents/dev/BlindTest/lib/*.dart)",
+      "Bash(xargs grep:*)"
+    ]
+  }
+}

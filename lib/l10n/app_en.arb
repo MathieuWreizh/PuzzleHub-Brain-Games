@@ -1,0 +1,262 @@
+{
+  "@@locale": "en",
+
+  "appSubtitle": "Test your musical knowledge",
+  "btnSolo": "Solo",
+  "btnMultiplayer": "Multiplayer",
+  "btnBack": "Back",
+  "btnContinue": "Continue",
+  "btnQuit": "Quit",
+  "btnReplay": "Play again",
+  "btnHome": "Home",
+
+  "drawerMyAvatar": "My avatar",
+  "drawerAchievements": "Achievements",
+  "drawerSettings": "Settings",
+  "drawerGuest": "Guest",
+  "drawerConnected": "Connected",
+  "drawerNotConnected": "Not connected",
+
+  "genreTitle": "Choose a genre",
+  "roundCount": "Number of tracks",
+  "btnPlayWithCount": "Play · {count} tracks",
+  "@btnPlayWithCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "gameLoading": "Loading tracks...",
+  "gameUnknownError": "Unknown error",
+  "quitTitle": "Quit game?",
+  "quitMessage": "Your progress will be lost.",
+  "btnResults": "See results",
+  "btnNext": "Next",
+
+  "questionFindTitle": "What is the title?",
+  "questionFindArtist": "Who is the artist?",
+  "questionFindAlbum": "What is the album?",
+
+  "settingsTitle": "Settings",
+  "settingsAudio": "Audio",
+  "settingsMusicVolume": "Music volume",
+  "settingsVolume": "Volume",
+  "settingsLanguage": "Language",
+
+  "resultTotalScore": "Total score",
+  "resultCorrectAnswers": "Correct answers",
+  "resultAccuracy": "Accuracy",
+  "resultXpTitle": "Experience",
+  "resultLevelUp": "Level {level} reached!",
+  "@resultLevelUp": {
+    "placeholders": {
+      "level": { "type": "int" }
+    }
+  },
+  "resultMaestro": "Maestro!",
+  "resultExcellent": "Excellent!",
+  "resultGood": "Well done!",
+  "resultNotBad": "Not bad...",
+  "resultKeepListening": "Keep listening!",
+
+  "achievementsTitle": "Achievements",
+  "achievementsUnlocked": "achievements unlocked",
+  "achievementsError": "Error: {error}",
+  "@achievementsError": {
+    "placeholders": {
+      "error": { "type": "Object" }
+    }
+  },
+  "drawerPlaylists": "My playlists",
+
+  "playlistsTitle": "My playlists",
+  "playlistNew": "New playlist",
+  "playlistNameHint": "Playlist name",
+  "playlistCreate": "Create",
+  "playlistEmpty": "No playlists yet",
+  "playlistEmptyTip": "Create your first custom playlist!",
+  "playlistTrackCount": "{count} track(s)",
+  "@playlistTrackCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "playlistMinTracks": "Add at least {min} tracks to play",
+  "@playlistMinTracks": {
+    "placeholders": {
+      "min": { "type": "int" }
+    }
+  },
+  "playlistPlay": "Play",
+  "playlistDelete": "Delete",
+  "playlistDeleteConfirm": "Delete this playlist?",
+  "playlistDeleteMessage": "This action cannot be undone.",
+  "playlistSearchHint": "Search for a title or artist...",
+  "playlistSearchEmpty": "No results",
+  "playlistInPlaylist": "In playlist",
+  "playlistAdd": "Add",
+  "playlistRemove": "Remove",
+  "playlistNoPreview": "No preview available",
+
+  "drawerDailyChallenges": "Daily challenges",
+  "drawerLeague": "Leagues",
+  "drawerChests": "Chests",
+
+  "leagueTitle": "Leagues",
+  "leagueTierName": "{tier}",
+  "@leagueTierName": { "placeholders": { "tier": { "type": "String" } } },
+  "leagueWeeklyPoints": "{points} pts this week",
+  "@leagueWeeklyPoints": { "placeholders": { "points": { "type": "int" } } },
+  "leagueNextTier": "{pts} more pts for {tier}",
+  "@leagueNextTier": { "placeholders": { "pts": { "type": "int" }, "tier": { "type": "String" } } },
+  "leagueMaxTier": "Maximum rank reached!",
+  "leaguePointsEarned": "+{pts} League pts",
+  "@leaguePointsEarned": { "placeholders": { "pts": { "type": "int" } } },
+
+  "leaderboardTitle": "Leaderboard",
+  "leaderboardYou": "You",
+  "leaderboardEmpty": "Be the first in your league!",
+  "leaderboardIndexHint": "Leaderboard will be available after your first game.",
+
+  "chestTitle": "Chests",
+  "chestBronze": "Bronze",
+  "chestSilver": "Silver",
+  "chestGold": "Gold",
+  "chestReady": "Open!",
+  "chestOpen": "Open",
+  "chestEmpty": "Empty slot",
+  "chestWatchAd": "📺 Open now",
+  "chestMaxReached": "Chests full (4/4)",
+  "chestEarned": "{type} chest earned!",
+  "@chestEarned": { "placeholders": { "type": { "type": "String" } } },
+  "chestCreditsWon": "+{credits} credits!",
+  "@chestCreditsWon": { "placeholders": { "credits": { "type": "int" } } },
+  "chestOpenIn": "Opens in",
+
+  "creditBalance": "Credits earned",
+  "creditBase": "Game completed",
+  "creditStreakBonus": "Answer streak",
+  "creditRecordBonus": "New record!",
+  "creditDailyBonus": "Daily bonus",
+  "creditChallengeBonus": "Challenges completed",
+
+  "challengesCompleted": "Challenges completed!",
+  "challengePlayGame": "Play a game",
+  "challengeAccuracy": "{target}%+ accuracy",
+  "@challengeAccuracy": { "placeholders": { "target": { "type": "int" } } },
+  "challengeStreak": "Chain {target} correct answers",
+  "@challengeStreak": { "placeholders": { "target": { "type": "int" } } },
+  "challengeScore": "Score {target} points",
+  "@challengeScore": { "placeholders": { "target": { "type": "int" } } },
+  "challengeGenre": "Play in this genre",
+
+  "rewardedAdBtn": "Watch an ad → +{credits} credits",
+  "@rewardedAdBtn": { "placeholders": { "credits": { "type": "int" } } },
+
+  "hintBtn": "Hint (10 credits)",
+  "hintDecade": "{decade}s",
+  "@hintDecade": { "placeholders": { "decade": { "type": "String" } } },
+  "hintNoInfo": "No info available",
+  "hintInsufficientCredits": "Insufficient credits",
+
+  "genreLockedCost": "{cost} credits",
+  "@genreLockedCost": { "placeholders": { "cost": { "type": "int" } } },
+  "genreUnlockTitle": "Unlock {genre}",
+  "@genreUnlockTitle": { "placeholders": { "genre": { "type": "String" } } },
+  "genreUnlockConfirm": "Spend {cost} credits to unlock {genre}?",
+  "@genreUnlockConfirm": { "placeholders": { "cost": { "type": "int" }, "genre": { "type": "String" } } },
+  "genreUnlockBtn": "Unlock",
+  "genreInsufficientCredits": "Not enough credits ({current})",
+  "@genreInsufficientCredits": { "placeholders": { "current": { "type": "int" } } },
+  "genreUnlockSuccess": "Unlocked!",
+
+  "dailyChallengesTitle": "Daily challenges",
+  "dailyChallengesDone": "{done}/{total} completed",
+  "@dailyChallengesDone": { "placeholders": { "done": { "type": "int" }, "total": { "type": "int" } } },
+  "dailyChallengesEmpty": "Come back tomorrow for new challenges!",
+  "streakDays": "{days} day(s) in a row",
+  "@streakDays": { "placeholders": { "days": { "type": "int" } } },
+
+  "catGamesPlayed": "Games played",
+  "catVictories": "Victories",
+  "catPerfection": "Perfection",
+  "catGenres": "Genres",
+
+  "achTitleGames10": "Novice",
+  "achDescGames10": "Play 10 games",
+  "achTitleGames20": "Amateur",
+  "achDescGames20": "Play 20 games",
+  "achTitleGames50": "Enthusiast",
+  "achDescGames50": "Play 50 games",
+  "achTitleGames100": "Music Lover",
+  "achDescGames100": "Play 100 games",
+  "achTitleWins1": "First Victory",
+  "achDescWins1": "Win 1 game (≥ 70% accuracy)",
+  "achTitleWins10": "On a Roll",
+  "achDescWins10": "Win 10 games",
+  "achTitleWins25": "Champion",
+  "achDescWins25": "Win 25 games",
+  "achTitleWins50": "Unbeatable",
+  "achDescWins50": "Win 50 games",
+  "achTitlePerfect1": "Perfect!",
+  "achDescPerfect1": "Finish a game without any mistakes",
+  "achTitlePerfect5": "Blind Test Master",
+  "achDescPerfect5": "Complete 5 perfect games",
+  "achTitleGenre": "{genre} Fan",
+  "@achTitleGenre": {
+    "placeholders": {
+      "genre": { "type": "String" }
+    }
+  },
+  "achDescGenre": "Play 10 games in {genre}",
+  "@achDescGenre": {
+    "placeholders": {
+      "genre": { "type": "String" }
+    }
+  },
+
+  "drawerSeason": "Season Pass",
+  "drawerProfile": "My Profile",
+
+  "seasonTitle": "Season Pass",
+  "seasonLevel": "Level {level}",
+  "@seasonLevel": { "placeholders": { "level": { "type": "int" } } },
+  "seasonXpProgress": "{current}/{max} XP",
+  "@seasonXpProgress": { "placeholders": { "current": { "type": "int" }, "max": { "type": "int" } } },
+  "seasonEnds": "Ends in {days}d",
+  "@seasonEnds": { "placeholders": { "days": { "type": "int" } } },
+  "seasonMaxLevel": "Maximum level reached!",
+  "seasonFreeTrack": "Free",
+  "seasonPremium": "Premium 🔒",
+  "seasonClaimAll": "Claim {count} reward(s)",
+  "@seasonClaimAll": { "placeholders": { "count": { "type": "int" } } },
+  "seasonRewardsClaimed": "{count} reward(s) claimed!",
+  "@seasonRewardsClaimed": { "placeholders": { "count": { "type": "int" } } },
+  "seasonLevelUp": "Season level {level} reached!",
+  "@seasonLevelUp": { "placeholders": { "level": { "type": "int" } } },
+
+  "profileTitle": "My Profile",
+  "profileBestScore": "Best score",
+  "profileGamesPlayed": "Games played",
+  "profileWins": "Victories",
+  "profilePerfect": "Perfect games",
+  "profileAccuracy": "Avg. accuracy",
+  "profileStreak": "Current streak",
+  "profileAchievements": "Achievements",
+
+  "settingsNotifications": "Notifications",
+  "settingsNotifChest": "Chests ready to open",
+  "settingsNotifDaily": "Daily challenge reminder",
+  "settingsNotifPermission": "Enable notifications",
+
+  "sudokuTitle": "Sudoku",
+  "sudokuSubtitle": "Fill the 9×9 grid",
+  "sudokuChooseDifficulty": "Choose a difficulty",
+  "sudokuEasy": "Easy",
+  "sudokuMedium": "Medium",
+  "sudokuHard": "Hard",
+  "sudokuExpert": "Expert",
+  "puzzleGamesTitle": "Puzzle Games",
+  "puzzleGamesSubtitle": "Brain training puzzles",
+  "comingSoon": "More games coming soon..."
+}
