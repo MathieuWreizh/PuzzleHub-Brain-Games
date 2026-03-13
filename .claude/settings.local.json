@@ -18,7 +18,8 @@
       "Bash(flutter analyze:*)",
       "Bash(flutter gen-l10n:*)",
       "Bash(grep -l \"online_question\\\\|player_answer\\\\|game_service\\\\|deezer\\\\|audio_service\\\\|game_config\\\\|game_provider\\\\|playlist_provider\" c:/Users/Enzooo/Documents/dev/BlindTest/lib/**/*.dart c:/Users/Enzooo/Documents/dev/BlindTest/lib/*.dart)",
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "Bash(dart run:*)"
     ]
   }
 }

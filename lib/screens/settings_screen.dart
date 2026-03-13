@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/auth_provider.dart';
 import '../providers/locale_provider.dart';
 import '../providers/settings_provider.dart';
 import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
+
+const _kPrivacyPolicyUrl = 'https://mathieuwreizh.github.io/privacy-policy/';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -164,6 +167,27 @@ class SettingsScreen extends ConsumerWidget {
 
               const SizedBox(height: 24),
 
+              // ── Légal ───────────────────────────────────────────────────
+              const Text(
+                'Légal',
+                style: TextStyle(
+                  color: AppTheme.textPrimary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              _LegalTile(
+                icon: Icons.privacy_tip_outlined,
+                label: 'Politique de confidentialité',
+                onTap: () => launchUrl(
+                  Uri.parse(_kPrivacyPolicyUrl),
+                  mode: LaunchMode.externalApplication,
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
               // ── Compte ─────────────────────────────────────────────────
               const Text(
                 'Compte',
@@ -289,6 +313,46 @@ class _NotifTile extends ConsumerWidget {
           await onDisable();
         }
       },
+    );
+  }
+}
+
+class _LegalTile extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  const _LegalTile({required this.icon, required this.label, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        decoration: BoxDecoration(
+          color: AppTheme.surface,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppTheme.border, width: 1),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: AppTheme.primary, size: 22),
+            const SizedBox(width: 16),
+            Text(
+              label,
+              style: const TextStyle(
+                color: AppTheme.textPrimary,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const Spacer(),
+            const Icon(Icons.open_in_new_rounded,
+                color: AppTheme.textSecondary, size: 18),
+          ],
+        ),
+      ),
     );
   }
 }
