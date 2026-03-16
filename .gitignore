@@ -1,6 +1,7 @@
 # Fichiers sensibles Firebase (ne jamais committer)
 google-services.json
 GoogleService-Info.plist
+lib/firebase_options.dart
 
 # Miscellaneous
 *.class
