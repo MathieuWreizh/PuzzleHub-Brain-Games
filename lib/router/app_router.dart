@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../models/game_result.dart';
+import '../services/auth_preference_service.dart';
 import '../models/sudoku.dart';
 import '../screens/auth_screen.dart';
 import '../screens/home_screen.dart';
@@ -22,6 +23,11 @@ import '../screens/adventure_map_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
+  redirect: (context, state) {
+    final hasChosen = AuthPreferenceService.instance.hasChosen;
+    if (!hasChosen && state.matchedLocation != '/auth') return '/auth';
+    return null;
+  },
   routes: [
     // --- Home ---
     GoRoute(

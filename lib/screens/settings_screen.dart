@@ -6,6 +6,7 @@ import '../l10n/app_localizations.dart';
 import '../providers/auth_provider.dart';
 import '../providers/locale_provider.dart';
 import '../providers/settings_provider.dart';
+import '../services/auth_preference_service.dart';
 import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
 
@@ -23,7 +24,7 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settingsTitle)),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,6 +244,7 @@ class _LogoutButton extends ConsumerWidget {
         );
         if (confirmed == true) {
           await ref.read(firebaseAuthServiceProvider).signOut();
+          await AuthPreferenceService.instance.reset();
           if (context.mounted) context.go('/auth');
         }
       },

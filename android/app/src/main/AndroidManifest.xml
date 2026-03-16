@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="blind_test"
+        android:label="Puzzle-Games"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

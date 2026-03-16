@@ -31,22 +31,24 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAiI4av0GBL6I08xrVne7HBSpDs-rmpOA0',
-    appId: '1:879210257795:android:9d602474bd524d23a02ab6',
-    messagingSenderId: '879210257795',
-    projectId: 'mon-blindtest-app',
-    storageBucket: 'mon-blindtest-app.firebasestorage.app',
+    apiKey: 'AIzaSyC-N2j7Ljs2BrGRqvVb4hL7ET6JfWAOTcw',
+    appId: '1:429347705603:android:b4ca408a0b012ec54a4f36',
+    messagingSenderId: '429347705603',
+    projectId: 'puzzlehub-brain-games',
+    storageBucket: 'puzzlehub-brain-games.firebasestorage.app',
   );
 
   // ⬇️  Remplace ces valeurs par celles de ta Firebase Console
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBT8DLVbHZu3HqoAB9jT_5zLr6E_7Tu-fg',
-    appId: '1:879210257795:ios:2dda1cbb76490d62a02ab6',
-    messagingSenderId: '879210257795',
-    projectId: 'mon-blindtest-app',
-    storageBucket: 'mon-blindtest-app.firebasestorage.app',
-    iosBundleId: 'com.blindtest.blindTest',
+    apiKey: 'AIzaSyBXBngrjMdhOVA3GMHUkm3b0nfYr7c3FLk',
+    appId: '1:429347705603:ios:975309d540d96fdd4a4f36',
+    messagingSenderId: '429347705603',
+    projectId: 'puzzlehub-brain-games',
+    storageBucket: 'puzzlehub-brain-games.firebasestorage.app',
+    androidClientId: '429347705603-5bjbap3ii8i8brm9loeb8ifh6l8enqbm.apps.googleusercontent.com',
+    iosClientId: '429347705603-uct3drutdablt3bqemo5e2lburt4v6ul.apps.googleusercontent.com',
+    iosBundleId: 'com.puzzlehub.braingames',
   );
 
 }

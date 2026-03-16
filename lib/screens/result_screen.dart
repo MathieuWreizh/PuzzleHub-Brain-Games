@@ -108,31 +108,43 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     );
     List<(DailyChallenge, int)> newChallenges = [];
     if (uid != null) {
+      final creditService = ref.read(creditServiceProvider);
+
+      // Bonus conditionnels (optionnels — n'empêchent pas l'ajout de crédits)
+      bool isRecord = false;
+      bool isFirstOfDay = false;
+      int streak = 0;
       try {
-        final creditService = ref.read(creditServiceProvider);
-        final isRecord = await creditService.checkAndUpdateBestScore(
+        isRecord = await creditService.checkAndUpdateBestScore(
             uid, widget.result.totalScore);
-        final (isFirstOfDay, streak) =
-            await creditService.checkAndUpdateStreak(uid);
-        reward = CreditService.calculateReward(
-          result: widget.result,
-          isNewRecord: isRecord,
-          isFirstOfDay: isFirstOfDay,
-          streakLength: streak,
+      } catch (e) { debugPrint('⚠️ checkBestScore: $e'); }
+      try {
+        (isFirstOfDay, streak) = await creditService.checkAndUpdateStreak(uid);
+      } catch (e) { debugPrint('⚠️ checkStreak: $e'); }
+
+      reward = CreditService.calculateReward(
+        result: widget.result,
+        isNewRecord: isRecord,
+        isFirstOfDay: isFirstOfDay,
+        streakLength: streak,
+      );
+
+      try {
+        newChallenges = await ref.read(dailyChallengeServiceProvider).checkAndAward(
+          uid, widget.result, null, creditService,
         );
-        newChallenges =
-            await ref.read(dailyChallengeServiceProvider).checkAndAward(
-                  uid,
-                  widget.result,
-                  null,
-                  creditService,
-                );
         for (final (_, amount) in newChallenges) {
           reward.addChallengeBonus(amount);
         }
-        await creditService.addCredits(uid,
-            reward.base + reward.streakBonus + reward.recordBonus + reward.dailyBonus);
-      } catch (_) {}
+      } catch (e) { debugPrint('⚠️ checkAndAward: $e'); }
+
+      // Ajout des crédits — bloc isolé pour ne jamais être bloqué
+      try {
+        await creditService.addCredits(uid, reward.total);
+        debugPrint('✅ Crédits ajoutés : ${reward.total}');
+      } catch (e) {
+        debugPrint('⚠️ addCredits ERREUR : $e');
+      }
     }
 
     // Succès (optionnel)
