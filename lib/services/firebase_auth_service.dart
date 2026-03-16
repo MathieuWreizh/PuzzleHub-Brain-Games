@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../firebase_options.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _auth;
@@ -7,7 +9,11 @@ class FirebaseAuthService {
 
   FirebaseAuthService({FirebaseAuth? auth, GoogleSignIn? googleSignIn})
       : _auth = auth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn();
+        _googleSignIn = googleSignIn ?? GoogleSignIn(
+          clientId: Platform.isIOS
+              ? DefaultFirebaseOptions.currentPlatform.iosClientId
+              : null,
+        );
 
   // ---------------------------------------------------------------------------
   // Getters
