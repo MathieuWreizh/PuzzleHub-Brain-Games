@@ -49,11 +49,11 @@ final appRouter = GoRouter(
           orElse: () => WordSearchDifficulty.easy,
         );
         final extra = state.extra as Map?;
-        return WordSearchScreen(
+        return PopScope(canPop: false, child: WordSearchScreen(
           difficulty: difficulty,
           adventureLevel: extra?['adventureLevel'] as int?,
           adventureGameId: extra?['adventureGameId'] as String?,
-        );
+        ));
       },
     ),
 
@@ -71,11 +71,11 @@ final appRouter = GoRouter(
           orElse: () => SudokuDifficulty.easy,
         );
         final extra = state.extra as Map?;
-        return SudokuScreen(
+        return PopScope(canPop: false, child: SudokuScreen(
           difficulty: difficulty,
           adventureLevel: extra?['adventureLevel'] as int?,
           adventureGameId: extra?['adventureGameId'] as String?,
-        );
+        ));
       },
     ),
 
@@ -93,11 +93,11 @@ final appRouter = GoRouter(
           orElse: () => FlowDifficulty.easy,
         );
         final extra = state.extra as Map?;
-        return FlowScreen(
+        return PopScope(canPop: false, child: FlowScreen(
           difficulty: difficulty,
           adventureLevel: extra?['adventureLevel'] as int?,
           adventureGameId: extra?['adventureGameId'] as String?,
-        );
+        ));
       },
     ),
 

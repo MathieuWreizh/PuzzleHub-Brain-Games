@@ -8,6 +8,8 @@ import '../providers/auth_provider.dart';
 import '../providers/avatar_provider.dart';
 import '../providers/xp_provider.dart';
 import '../l10n/app_localizations.dart';
+import '../models/visual_theme.dart';
+import '../providers/visual_theme_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/avatar_widget.dart';
 import '../widgets/xp_bar.dart';
@@ -23,6 +25,7 @@ class HomeScreen extends ConsumerWidget {
         );
     final displayName = ref.watch(displayNameProvider);
     final isLoggedIn = ref.watch(isLoggedInProvider);
+    final vt = ref.watch(visualThemeProvider);
 
     return Scaffold(
       endDrawer: _AppDrawer(
@@ -32,22 +35,22 @@ class HomeScreen extends ConsumerWidget {
       ),
       body: Builder(
         builder: (ctx) => Container(
-          decoration: const BoxDecoration(gradient: AppTheme.backgroundGradient),
+          decoration: BoxDecoration(gradient: vt.backgroundGradient),
           child: SafeArea(
             child: Stack(
               children: [
                 // ── Cercles décoratifs flous en arrière-plan ────────────────
                 Positioned(
                   top: -80, right: -60,
-                  child: _BlurCircle(size: 260, color: AppTheme.primary.withValues(alpha: 0.12)),
+                  child: _BlurCircle(size: 260, color: vt.primary.withValues(alpha: 0.12)),
                 ),
                 Positioned(
                   bottom: 80, left: -80,
-                  child: _BlurCircle(size: 220, color: AppTheme.secondary.withValues(alpha: 0.10)),
+                  child: _BlurCircle(size: 220, color: vt.secondary.withValues(alpha: 0.10)),
                 ),
                 Positioned(
                   top: 180, left: -40,
-                  child: _BlurCircle(size: 160, color: const Color(0xFF06B6D4).withValues(alpha: 0.08)),
+                  child: _BlurCircle(size: 160, color: vt.secondary.withValues(alpha: 0.08)),
                 ),
 
                 // ── Avatar / menu button (top-right) ────────────────────────
@@ -59,7 +62,7 @@ class HomeScreen extends ConsumerWidget {
                         ? AvatarWidget(avatar: avatar, size: 44)
                         : _GlassIconButton(
                             icon: Icons.menu_rounded,
-                            color: AppTheme.primary,
+                            color: vt.primary,
                           ),
                   ),
                 ),
@@ -77,11 +80,11 @@ class HomeScreen extends ConsumerWidget {
                         width: 100,
                         height: 100,
                         decoration: BoxDecoration(
-                          gradient: AppTheme.primaryGradient,
+                          gradient: vt.primaryGradient,
                           borderRadius: BorderRadius.circular(28),
                           boxShadow: [
                             BoxShadow(
-                              color: AppTheme.primary.withValues(alpha: 0.35),
+                              color: vt.primary.withValues(alpha: 0.35),
                               blurRadius: 24,
                               offset: const Offset(0, 10),
                             ),
@@ -92,20 +95,19 @@ class HomeScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 24),
 
-                      const Text(
+                      Text(
                         'Puzzle Games',
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
-                          color: AppTheme.textPrimary,
+                          color: vt.textPrimary,
                           letterSpacing: -0.5,
                         ),
                       ),
                       const SizedBox(height: 6),
                       Text(
                         AppLocalizations.of(context).appSubtitle,
-                        style: const TextStyle(
-                            fontSize: 15, color: AppTheme.textSecondary),
+                        style: TextStyle(fontSize: 15, color: vt.textSecondary),
                       ),
 
                       const Spacer(),
@@ -114,7 +116,7 @@ class HomeScreen extends ConsumerWidget {
                         emoji: '🧩',
                         title: 'Sudoku',
                         subtitle: 'Remplis la grille 9×9',
-                        color: AppTheme.primary,
+                        color: vt.primary,
                         gameId: 'sudoku',
                       ),
                       const SizedBox(height: 12),
@@ -132,13 +134,6 @@ class HomeScreen extends ConsumerWidget {
                         subtitle: 'Relie les points de couleur',
                         color: const Color(0xFF7C3AED),
                         gameId: 'flow',
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Plus de jeux à venir...',
-                        style: const TextStyle(
-                            fontSize: 13, color: AppTheme.textSecondary),
-                        textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 32),
                     ],
@@ -235,7 +230,6 @@ class _GameRow extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        // Bouton Aventure (glass)
         Tooltip(
           message: 'Mode Aventure',
           child: GestureDetector(
@@ -296,7 +290,8 @@ class _GameRow extends StatelessWidget {
 
 // ── Game Card ─────────────────────────────────────────────────────────────────
 
-class _GameCard extends StatelessWidget {
+
+class _GameCard extends ConsumerWidget {
   final String emoji;
   final String title;
   final String subtitle;
@@ -312,7 +307,8 @@ class _GameCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final vt = ref.watch(visualThemeProvider);
     return GestureDetector(
       onTap: onTap,
       child: ClipRRect(
@@ -323,7 +319,7 @@ class _GameCard extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.80),
+              color: vt.surface.withValues(alpha: 0.80),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
                   color: color.withValues(alpha: 0.18), width: 1.2),
@@ -337,7 +333,6 @@ class _GameCard extends StatelessWidget {
             ),
             child: Row(
               children: [
-                // Emoji dans un fond dégradé teinté
                 Container(
                   width: 52,
                   height: 52,
@@ -358,8 +353,8 @@ class _GameCard extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
-                          color: AppTheme.textPrimary,
+                        style: TextStyle(
+                          color: vt.textPrimary,
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                         ),
@@ -367,8 +362,8 @@ class _GameCard extends StatelessWidget {
                       const SizedBox(height: 3),
                       Text(
                         subtitle,
-                        style: const TextStyle(
-                          color: AppTheme.textSecondary,
+                        style: TextStyle(
+                          color: vt.textSecondary,
                           fontSize: 12,
                         ),
                       ),
@@ -410,8 +405,9 @@ class _AppDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final stats = ref.watch(userStatsProvider).valueOrNull;
+    final vt = ref.watch(visualThemeProvider);
     return Drawer(
-      backgroundColor: AppTheme.surface,
+      backgroundColor: vt.surface,
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -451,14 +447,14 @@ class _AppDrawer extends ConsumerWidget {
             ),
             const Spacer(),
 
-            const Divider(color: AppTheme.border, height: 1),
+            Divider(color: vt.border, height: 1),
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Text(
                 'Puzzle Games v1.0',
                 style: TextStyle(
-                  color: AppTheme.textSecondary.withValues(alpha: 0.6),
+                  color: vt.textSecondary.withValues(alpha: 0.6),
                   fontSize: 12,
                 ),
                 textAlign: TextAlign.center,
@@ -471,7 +467,7 @@ class _AppDrawer extends ConsumerWidget {
   }
 }
 
-class _DrawerHeader extends StatelessWidget {
+class _DrawerHeader extends ConsumerWidget {
   final Avatar? avatar;
   final String displayName;
   final bool isLoggedIn;
@@ -485,13 +481,14 @@ class _DrawerHeader extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final vt = ref.watch(visualThemeProvider);
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
       decoration: BoxDecoration(
-        gradient: AppTheme.backgroundGradient,
+        gradient: vt.backgroundGradient,
         border: Border(
-          bottom: BorderSide(color: AppTheme.border, width: 1),
+          bottom: BorderSide(color: vt.border, width: 1),
         ),
       ),
       child: Row(
@@ -502,7 +499,7 @@ class _DrawerHeader extends StatelessWidget {
                   width: 56,
                   height: 56,
                   decoration: BoxDecoration(
-                    gradient: AppTheme.primaryGradient,
+                    gradient: vt.primaryGradient,
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(Icons.person_outline_rounded,
@@ -517,8 +514,8 @@ class _DrawerHeader extends StatelessWidget {
                   isLoggedIn
                       ? displayName
                       : AppLocalizations.of(context).drawerGuest,
-                  style: const TextStyle(
-                    color: AppTheme.textPrimary,
+                  style: TextStyle(
+                    color: vt.textPrimary,
                     fontWeight: FontWeight.bold,
                     fontSize: 17,
                   ),
@@ -535,7 +532,7 @@ class _DrawerHeader extends StatelessWidget {
                     style: TextStyle(
                       color: isLoggedIn
                           ? AppTheme.correct
-                          : AppTheme.textSecondary,
+                          : vt.textSecondary,
                       fontSize: 12,
                     ),
                   ),
@@ -548,7 +545,7 @@ class _DrawerHeader extends StatelessWidget {
   }
 }
 
-class _DrawerItem extends StatelessWidget {
+class _DrawerItem extends ConsumerWidget {
   final IconData icon;
   final String label;
   final VoidCallback onTap;
@@ -560,7 +557,8 @@ class _DrawerItem extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final vt = ref.watch(visualThemeProvider);
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
@@ -570,14 +568,14 @@ class _DrawerItem extends StatelessWidget {
           children: [
             ShaderMask(
               shaderCallback: (bounds) =>
-                  AppTheme.primaryGradient.createShader(bounds),
+                  vt.primaryGradient.createShader(bounds),
               child: Icon(icon, color: Colors.white, size: 22),
             ),
             const SizedBox(width: 16),
             Text(
               label,
-              style: const TextStyle(
-                color: AppTheme.textPrimary,
+              style: TextStyle(
+                color: vt.textPrimary,
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
               ),

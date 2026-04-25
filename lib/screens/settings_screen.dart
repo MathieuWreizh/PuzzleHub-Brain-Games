@@ -3,9 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../l10n/app_localizations.dart';
+import '../models/sound_ambiance.dart';
+import '../models/visual_theme.dart';
 import '../providers/auth_provider.dart';
 import '../providers/locale_provider.dart';
 import '../providers/settings_provider.dart';
+import '../providers/sound_provider.dart';
+import '../providers/visual_theme_provider.dart';
 import '../services/auth_preference_service.dart';
 import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
@@ -20,6 +24,8 @@ class SettingsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final volume = ref.watch(volumeProvider);
     final locale = ref.watch(localeProvider);
+    final currentTheme = ref.watch(visualThemeProvider);
+    final currentAmbiance = ref.watch(soundAmbianceProvider);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settingsTitle)),
@@ -29,6 +35,32 @@ class SettingsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // ── Thème visuel ───────────────────────────────────────────
+              const Text(
+                'Thème visuel',
+                style: TextStyle(
+                  color: AppTheme.textPrimary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              _ThemeSelector(current: currentTheme),
+              const SizedBox(height: 24),
+
+              // ── Ambiance sonore ────────────────────────────────────────
+              const Text(
+                'Ambiance sonore',
+                style: TextStyle(
+                  color: AppTheme.textPrimary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              _AmbianceSelector(current: currentAmbiance),
+              const SizedBox(height: 24),
+
               // ── Audio ──────────────────────────────────────────────────
               Text(
                 l10n.settingsAudio,
@@ -200,6 +232,8 @@ class SettingsScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               const _LogoutButton(),
+              const SizedBox(height: 12),
+              const _DeleteAccountButton(),
             ],
           ),
         ),
@@ -266,6 +300,81 @@ class _LogoutButton extends ConsumerWidget {
             Text(
               isLoggedIn ? 'Se déconnecter' : 'Quitter la session',
               style: const TextStyle(
+                color: AppTheme.wrong,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const Spacer(),
+            const Icon(Icons.chevron_right_rounded, color: AppTheme.wrong, size: 20),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DeleteAccountButton extends ConsumerWidget {
+  const _DeleteAccountButton();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return GestureDetector(
+      onTap: () async {
+        final confirmed = await showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            backgroundColor: AppTheme.surface,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            title: const Text(
+              'Supprimer le compte',
+              style: TextStyle(color: AppTheme.textPrimary, fontWeight: FontWeight.bold),
+            ),
+            content: const Text(
+              'Cette action est irréversible. Toutes tes données seront définitivement supprimées.',
+              style: TextStyle(color: AppTheme.textSecondary),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: const Text('Annuler', style: TextStyle(color: AppTheme.textSecondary)),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(ctx).pop(true),
+                style: ElevatedButton.styleFrom(backgroundColor: AppTheme.wrong),
+                child: const Text('Supprimer définitivement'),
+              ),
+            ],
+          ),
+        );
+        if (confirmed == true) {
+          try {
+            await ref.read(firebaseAuthServiceProvider).deleteAccount();
+            await AuthPreferenceService.instance.reset();
+            if (context.mounted) context.go('/auth');
+          } on Exception catch (e) {
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(e.toString())),
+              );
+            }
+          }
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        decoration: BoxDecoration(
+          color: AppTheme.surface,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppTheme.wrong.withValues(alpha: 0.3), width: 1),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.delete_forever_rounded, color: AppTheme.wrong, size: 22),
+            const SizedBox(width: 16),
+            const Text(
+              'Supprimer mon compte',
+              style: TextStyle(
                 color: AppTheme.wrong,
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
@@ -395,6 +504,109 @@ class _LangButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+// ── Theme Selector ────────────────────────────────────────────────────────────
+
+class _ThemeSelector extends ConsumerWidget {
+  final VisualTheme current;
+  const _ThemeSelector({required this.current});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Wrap(
+      spacing: 10,
+      runSpacing: 10,
+      children: VisualTheme.all.map((t) {
+        final selected = t.id == current.id;
+        return GestureDetector(
+          onTap: () => ref.read(visualThemeProvider.notifier).setTheme(t),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              gradient: selected ? t.primaryGradient : null,
+              color: selected ? null : AppTheme.surface,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: selected ? t.primary : AppTheme.border,
+                width: selected ? 2 : 1,
+              ),
+              boxShadow: selected
+                  ? [BoxShadow(color: t.primary.withValues(alpha: 0.25), blurRadius: 8, offset: const Offset(0, 3))]
+                  : [],
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(t.emoji, style: const TextStyle(fontSize: 18)),
+                const SizedBox(width: 6),
+                Text(
+                  t.label,
+                  style: TextStyle(
+                    color: selected ? Colors.white : AppTheme.textPrimary,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
+
+// ── Ambiance Selector ─────────────────────────────────────────────────────────
+
+class _AmbianceSelector extends ConsumerWidget {
+  final SoundAmbiance current;
+  const _AmbianceSelector({required this.current});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Wrap(
+      spacing: 10,
+      runSpacing: 10,
+      children: SoundAmbiance.all.map((a) {
+        final selected = a.id == current.id;
+        return GestureDetector(
+          onTap: () => ref.read(soundAmbianceProvider.notifier).setAmbiance(a),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              color: selected ? AppTheme.primary : AppTheme.surface,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: selected ? AppTheme.primary : AppTheme.border,
+                width: selected ? 2 : 1,
+              ),
+              boxShadow: selected
+                  ? [BoxShadow(color: AppTheme.primary.withValues(alpha: 0.25), blurRadius: 8, offset: const Offset(0, 3))]
+                  : [],
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(a.emoji, style: const TextStyle(fontSize: 18)),
+                const SizedBox(width: 6),
+                Text(
+                  a.label,
+                  style: TextStyle(
+                    color: selected ? Colors.white : AppTheme.textPrimary,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

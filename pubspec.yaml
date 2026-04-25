@@ -50,6 +50,16 @@ dependencies:
   # Liens externes (politique de confidentialité, etc.)
   url_launcher: ^6.3.1
 
+  # Authentification Apple (App Store 4.8)
+  sign_in_with_apple: ^6.0.0
+  crypto: ^3.0.3
+
+  # App Tracking Transparency iOS (App Store 2.1)
+  app_tracking_transparency: ^2.0.6
+
+  # Ambiances sonores
+  just_audio: ^0.9.44
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

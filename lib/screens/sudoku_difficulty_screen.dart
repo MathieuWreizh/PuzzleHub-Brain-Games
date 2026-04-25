@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../models/sudoku.dart';
+import '../models/visual_theme.dart';
 import '../providers/unlock_provider.dart';
+import '../providers/visual_theme_provider.dart';
 import '../services/unlock_service.dart';
 import '../theme/app_theme.dart';
 import '../widgets/unlock_difficulty_dialog.dart';
@@ -15,20 +17,19 @@ class SudokuDifficultyScreen extends ConsumerWidget {
     final unlocked = ref
         .watch(unlockedDifficultiesProvider('sudoku'))
         .maybeWhen(data: (s) => s, orElse: () => {'easy'});
+    final vt = ref.watch(visualThemeProvider);
 
     return Scaffold(
-      backgroundColor: AppTheme.background,
+      backgroundColor: vt.backgroundGradient.colors.first,
       appBar: AppBar(
-        backgroundColor: AppTheme.background,
+        backgroundColor: vt.backgroundGradient.colors.first,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded,
-              color: AppTheme.textPrimary),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: vt.textPrimary),
           onPressed: () => context.canPop() ? context.pop() : context.go('/'),
         ),
-        title: const Text('Sudoku',
-            style: TextStyle(
-                color: AppTheme.textPrimary, fontWeight: FontWeight.bold)),
+        title: Text('Sudoku',
+            style: TextStyle(color: vt.textPrimary, fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -40,11 +41,7 @@ class SudokuDifficultyScreen extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [AppTheme.primary, AppTheme.secondary],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  gradient: vt.primaryGradient,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: const Column(
@@ -58,16 +55,15 @@ class SudokuDifficultyScreen extends ConsumerWidget {
                             fontWeight: FontWeight.bold)),
                     SizedBox(height: 4),
                     Text('Remplis la grille 9×9',
-                        style:
-                            TextStyle(color: Colors.white70, fontSize: 14)),
+                        style: TextStyle(color: Colors.white70, fontSize: 14)),
                   ],
                 ),
               ),
               const SizedBox(height: 32),
-              const Text(
+              Text(
                 'Choisir une difficulté',
                 style: TextStyle(
-                    color: AppTheme.textSecondary,
+                    color: vt.textSecondary,
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1),
@@ -80,6 +76,7 @@ class SudokuDifficultyScreen extends ConsumerWidget {
                       difficulty: d,
                       isUnlocked: unlocked.contains(d.name),
                       ref: ref,
+                      vt: vt,
                     ),
                   )),
             ],
@@ -94,11 +91,13 @@ class _DifficultyButton extends StatelessWidget {
   final SudokuDifficulty difficulty;
   final bool isUnlocked;
   final WidgetRef ref;
+  final VisualTheme vt;
 
   const _DifficultyButton({
     required this.difficulty,
     required this.isUnlocked,
     required this.ref,
+    required this.vt,
   });
 
   Color get _color => switch (difficulty) {
@@ -165,14 +164,14 @@ class _DifficultyButton extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(difficulty.label,
-                        style: const TextStyle(
-                            color: AppTheme.textPrimary,
+                        style: TextStyle(
+                            color: vt.textPrimary,
                             fontSize: 17,
                             fontWeight: FontWeight.w600)),
                     if (locked && cost != null)
                       Text('🔒 $cost crédits pour débloquer',
-                          style: const TextStyle(
-                              color: AppTheme.textSecondary, fontSize: 12)),
+                          style: TextStyle(
+                              color: vt.textSecondary, fontSize: 12)),
                   ],
                 ),
               ),
@@ -199,8 +198,8 @@ class _DifficultyButton extends StatelessWidget {
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold)),
                         const SizedBox(width: 8),
-                        const Icon(Icons.chevron_right_rounded,
-                            color: AppTheme.textSecondary),
+                        Icon(Icons.chevron_right_rounded,
+                            color: vt.textSecondary),
                       ],
                     ),
             ],

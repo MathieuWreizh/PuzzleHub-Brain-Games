@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../models/flow_puzzle.dart';
+import '../models/visual_theme.dart';
 import '../providers/unlock_provider.dart';
+import '../providers/visual_theme_provider.dart';
 import '../services/unlock_service.dart';
-import '../theme/app_theme.dart';
 import '../widgets/unlock_difficulty_dialog.dart';
 
 class FlowDifficultyScreen extends ConsumerWidget {
@@ -15,20 +16,19 @@ class FlowDifficultyScreen extends ConsumerWidget {
     final unlocked = ref
         .watch(unlockedDifficultiesProvider('flow'))
         .maybeWhen(data: (s) => s, orElse: () => {'easy'});
+    final vt = ref.watch(visualThemeProvider);
 
     return Scaffold(
-      backgroundColor: AppTheme.background,
+      backgroundColor: vt.backgroundGradient.colors.first,
       appBar: AppBar(
-        backgroundColor: AppTheme.background,
+        backgroundColor: vt.backgroundGradient.colors.first,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded,
-              color: AppTheme.textPrimary),
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: vt.textPrimary),
           onPressed: () => context.canPop() ? context.pop() : context.go('/'),
         ),
-        title: const Text('Flow Puzzle',
-            style: TextStyle(
-                color: AppTheme.textPrimary, fontWeight: FontWeight.bold)),
+        title: Text('Flow Puzzle',
+            style: TextStyle(color: vt.textPrimary, fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -38,18 +38,18 @@ class FlowDifficultyScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'Relie les points de même couleur\nsans croiser les chemins.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: AppTheme.textSecondary, fontSize: 15, height: 1.5),
+                    color: vt.textSecondary, fontSize: 15, height: 1.5),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'Toutes les cases doivent être remplies !',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: AppTheme.primary,
+                    color: vt.primary,
                     fontSize: 13,
                     fontWeight: FontWeight.w600),
               ),
@@ -60,6 +60,7 @@ class FlowDifficultyScreen extends ConsumerWidget {
                       difficulty: d,
                       isUnlocked: unlocked.contains(d.name),
                       ref: ref,
+                      vt: vt,
                     ),
                   )),
             ],
@@ -74,11 +75,13 @@ class _DifficultyCard extends StatelessWidget {
   final FlowDifficulty difficulty;
   final bool isUnlocked;
   final WidgetRef ref;
+  final VisualTheme vt;
 
   const _DifficultyCard({
     required this.difficulty,
     required this.isUnlocked,
     required this.ref,
+    required this.vt,
   });
 
   static const _colors = {
@@ -133,67 +136,66 @@ class _DifficultyCard extends StatelessWidget {
           ),
           child: Row(
             children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: locked
-                        ? Icon(Icons.lock_rounded, color: color, size: 22)
-                        : Text(
-                            '$size×$size',
-                            style: TextStyle(
-                                color: color,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14),
-                          ),
-                  ),
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(difficulty.label,
-                          style: const TextStyle(
-                              color: AppTheme.textPrimary,
+                child: Center(
+                  child: locked
+                      ? Icon(Icons.lock_rounded, color: color, size: 22)
+                      : Text(
+                          '$size×$size',
+                          style: TextStyle(
+                              color: color,
                               fontWeight: FontWeight.bold,
-                              fontSize: 16)),
-                      const SizedBox(height: 2),
-                      locked
-                          ? Text('$colors couleurs · 🔒 $cost crédits',
-                              style: const TextStyle(
-                                  color: AppTheme.textSecondary, fontSize: 13))
-                          : Text('$colors couleurs · ${difficulty.baseScore} pts',
-                              style: const TextStyle(
-                                  color: AppTheme.textSecondary, fontSize: 13)),
-                    ],
-                  ),
-                ),
-                locked
-                    ? Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                          color: color.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(8),
+                              fontSize: 14),
                         ),
-                        child: Text('Débloquer',
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(difficulty.label,
+                        style: TextStyle(
+                            color: vt.textPrimary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16)),
+                    const SizedBox(height: 2),
+                    locked
+                        ? Text('$colors couleurs · 🔒 $cost crédits',
                             style: TextStyle(
-                                color: color,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold)),
-                      )
-                    : Icon(Icons.arrow_forward_ios_rounded,
-                        color: AppTheme.textSecondary, size: 16),
-              ],
-            ),
+                                color: vt.textSecondary, fontSize: 13))
+                        : Text('$colors couleurs · ${difficulty.baseScore} pts',
+                            style: TextStyle(
+                                color: vt.textSecondary, fontSize: 13)),
+                  ],
+                ),
+              ),
+              locked
+                  ? Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: color.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text('Débloquer',
+                          style: TextStyle(
+                              color: color,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold)),
+                    )
+                  : Icon(Icons.arrow_forward_ios_rounded,
+                      color: vt.textSecondary, size: 16),
+            ],
           ),
         ),
+      ),
     );
   }
 }
-

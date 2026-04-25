@@ -1,0 +1,55 @@
+workflows:
+  ios-testflight:
+    name: iOS → TestFlight
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+
+    integrations:
+      app_store_connect: Apple Dev # nom du profil dans Codemagic > Teams > Integrations
+
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.puzzlehub.braingames
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      vars:
+        BUNDLE_ID: com.puzzlehub.braingames
+        APP_STORE_APPLE_ID: "YOUR_APP_APPLE_ID" # à remplacer : App Store Connect > App > App Information > Apple ID
+
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+
+    scripts:
+      - name: Set Flutter version
+        script: flutter --version
+
+      - name: Install dependencies
+        script: flutter pub get
+
+      - name: Flutter analyze (non-bloquant)
+        script: flutter analyze --no-fatal-infos || true
+
+      - name: Build IPA
+        script: |
+          flutter build ipa \
+            --release \
+            --export-options-plist=/Users/builder/export_options.plist
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        beta_groups:
+          - "Internal Testers"
+        notify_external_testers: false
